@@ -1,6 +1,11 @@
 ﻿namespace NunitPwSample;
 
-public class Test
+[TestFixture]
+public class Test : TestBase
 {
-    
+    [Test]
+    public async Task SampleTest()
+    {
+        await page.GotoAsync("http://localhost:5000");
+    }
 }
