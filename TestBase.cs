@@ -14,26 +14,18 @@ public class TestBase
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
     {
+        // this is to simulate externally running server
         var builder = WebApplication.CreateBuilder();
-
-
         builder.WebHost.UseUrls("http://localhost:5000");
-
         var app = builder.Build();
-
-
         app.UseStaticFiles();
-
-
         app.MapGet("/", async context => { await context.Response.SendFileAsync("wwwroot/index.html"); });
-
-
+        
         _ = app.StartAsync();
-
 
         var browser = BrowserFactory.OpenBrowser().GetAwaiter().GetResult();
 
-        page = await BrowserFactory.OpenNewPage(browser, false);
+        page = await BrowserFactory.OpenNewPage(browser);
     }
 
     /// <summary>
